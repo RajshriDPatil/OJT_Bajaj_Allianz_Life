@@ -1,0 +1,67 @@
+
+🛡️ Insurance Policy Recommendation App :
+
+🔍 Purpose
+This R Shiny app is designed to recommend suitable policy terms (benefit terms) to customers based on their selected premium term and demographic preferences, using Association Rule Mining (Apriori algorithm) on historical insurance data.
+
+🧠 How It Works
+1. User uploads a historical insurance dataset
+2. App validates the dataset structure
+3. The data is transformed into transactional format suitable for Apriori:
+   - e.g., "premium_term=10", "age_group=31-40", "booking=Yearly"...
+4. User selects input filters (e.g., Premium Term, Age Group, Gender, etc.)
+5. App filters matching customer profiles and applies the Apriori algorithm
+6. Based on mined rules, it recommends:
+   - Policy Term (benefit term)
+   - Also displays Booking Frequency, Age Group, Policy Type, etc.
+7. If no rule is found, a fallback logic displays the most frequently chosen benefit term for the selected premium term.
+
+🧾 Input Variables (User-Selectable)
+- Premium Term (in years)
+- Age Group (18–30, 31–40, 41–50, 51–60)
+- Income Group (0–3L, 3–6L, 6–10L, 10L+)
+- Gender (Male/Female)
+- Marital Status (Married, Unmarried, Widow)
+- Location (Urban, Semi-urban, Rural)
+- Booking Frequency (Monthly, Quarterly, Half_yearly, Yearly)
+
+📊 EDA & Data Summary Panel
+- Summary statistics of the uploaded dataset
+- Histogram plots for:
+  - Age
+  - Income
+  - Premium Term
+  - Gender
+  - Location
+  - Booking Frequency
+  - Marital Status
+- Textual conclusions under each plot (e.g., “Most users prefer Half_yearly booking.”)
+
+🔗 Backend Logic
+- Uses `arules` library in R
+- Each filtered record is turned into a transaction of items
+- Apriori algorithm is applied with:
+  - Minimum support = 0.01
+  - Minimum confidence = 0.6
+- Rules are filtered where LHS has selected premium_term
+- Top 5 rules shown by confidence × lift
+
+📦 Features Summary
+| Feature                     | Status |
+|----------------------------|--------|
+| File Upload                | ✅     |
+| Missing Column Validation  | ✅     |
+| Dynamic Filtering          | ✅     |
+| Apriori Rule Mining        | ✅     |
+| Fallback Logic             | ✅     |
+| UI Tabs: EDA + Recommendation | ✅  |
+| Rule Sorting (Confidence × Lift) | ✅ |
+| Styled Interface (Shiny + CSS) | ✅ |
+| Toggle Filter Logic (coming soon) | 🔄 |
+
+📁 Test Files
+- structured_insurance_data.csv (1,500 rows) — generated for strong rule testing
+- All required columns included: age, gender, income, premium_term, policy_term, etc.
+
+🏁 Final Outcome
+The system can intelligently recommend benefit terms not by chance, but by understanding past behavior patterns across thousands of customers. This helps insurance agents or online customers make smarter policy decisions.
